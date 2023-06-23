@@ -11,7 +11,6 @@ use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\MeController;
-use App\Http\Controllers\PhotosController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\NitroController;
 use App\Http\Controllers\PasswordSettingsController;
@@ -71,7 +70,6 @@ Route::middleware(['maintenance', 'check-ban', 'force.staff.2fa'])->group(functi
         Route::prefix('community')->group(function () {
             Route::get('/', [MeController::class, 'index'])->name('community.index');
             Route::get('/claim/referral-reward', ReferralController::class)->name('claim.referral-reward');
-            Route::get('/photos', PhotosController::class)->name('photos.index')->withoutMiddleware('auth');
 
             Route::withoutMiddleware('auth')->group(function () {
                 Route::get('/articles', [ArticleController::class, 'index'])->name('article.index');

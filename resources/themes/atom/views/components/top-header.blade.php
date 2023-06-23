@@ -10,7 +10,7 @@
 
         <x-top-header-currency icon="nav-ducket-icon">
             <x-slot:currency>
-                {{ auth()->user()->currency('duckets') }}
+                {{ auth()->user()->activity_points }}
             </x-slot:currency>
 
             {{ __('Duckets') }}
@@ -18,7 +18,7 @@
 
         <x-top-header-currency icon="nav-diamond-icon">
             <x-slot:currency>
-                {{ auth()->user()->currency('diamonds') }}
+                {{ auth()->user()->vip_points }}
             </x-slot:currency>
 
             {{ __('Diamonds') }}

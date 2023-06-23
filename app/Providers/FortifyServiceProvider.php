@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Actions\Fortify\CreateNewUser;
-use App\Models\CameraWeb;
 use App\Actions\Fortify\RedirectIfTwoFactorConfirmed;
 use App\Models\WebsiteArticle;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -52,11 +51,6 @@ class FortifyServiceProvider extends ServiceProvider
             return view('auth.login', [
                 'articles' => WebsiteArticle::latest('id')
                     ->take(4)
-                    ->has('user')
-                    ->with('user:id,username,look')
-                    ->get(),
-                'photos' => CameraWeb::latest('id')
-                    ->take(8)
                     ->has('user')
                     ->with('user:id,username,look')
                     ->get(),

@@ -13,7 +13,7 @@ class MeController extends Controller
 
         return view('user.me', [
             'onlineFriends' => $user->getOnlineFriends(),
-            'user' => $user->load('permission:id,rank_name'),
+            'user' => $user->load('permission:id,name'),
             'articles' => WebsiteArticle::latest()->with('user:id,username,look')->take(5)->get(),
         ]);
     }

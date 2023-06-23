@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class UserSetting extends Model
+class UserStat extends Model
 {
-    protected $table = 'users_settings';
+    protected $table = 'user_stats';
 
     protected $guarded = ['id'];
 
@@ -15,6 +15,6 @@ class UserSetting extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'id', 'id');
     }
 }

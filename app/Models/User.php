@@ -29,31 +29,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function currencies(): HasMany
-    {
-        return $this->hasMany(UserCurrency::class, 'user_id');
-    }
-
     public function sessions()
     {
         return $this->hasMany(Session::class);
     }
-
-    public function currency(string $currency)
-    {
-        if (!$this->relationLoaded('currencies')) {
-            $this->load('currencies');
-        }
-
-        $type = match ($currency) {
-            'duckets' => 0,
-            'diamonds' => 5,
-            'points' => 101,
-        };
-
-        return $this->currencies->where('type', $type)->first()->amount ?? 0;
-    }
-
+	
     public function permission(): HasOne
     {
         return $this->hasOne(Permission::class, 'id', 'rank');
@@ -86,7 +66,7 @@ class User extends Authenticatable
 
     public function rooms(): HasMany
     {
-        return $this->hasMany(Room::class, 'owner_id');
+        return $this->hasMany(Room::class, 'owner');
     }
 
     public function friends(): HasMany
@@ -107,12 +87,12 @@ class User extends Authenticatable
 
     public function ban(): HasOne
     {
-        return $this->hasOne(Ban::class, 'user_id')->where('ban_expire', '>', time());
+        return $this->hasOne(Ban::class, 'value', 'username')->where('expire', '>', time());
     }
 
-    public function settings(): HasOne
+    public function stat(): HasOne
     {
-        return $this->hasOne(UserSetting::class);
+        return $this->hasOne(UserStat::class);
     }
 
     public function ssoTicket(): string

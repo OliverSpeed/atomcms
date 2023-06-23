@@ -24,20 +24,6 @@
                 </div>
             </x-content.auth-content-section>
         </div>
-
-        <div class="col-span-12">
-            <x-content.auth-content-section icon="camera-icon">
-                <x-slot:title>
-                    {{ __('Latest Photos') }}
-                </x-slot:title>
-
-                <x-slot:under-title>
-                    {{ __('Have a look at some of the great moments captured by users around the hotel.') }}
-                </x-slot:under-title>
-
-                <x-photos :photos="$photos" />
-            </x-content.auth-content-section>
-        </div>
     </div>
 
     @push('javascript')

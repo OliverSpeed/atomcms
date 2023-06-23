@@ -30,7 +30,7 @@
                         <img src="{{ asset('/assets/images/profile/duckets.png') }}" alt="">
 
                         <h4 class="text-[#812378] font-semibold text-2xl">
-                            {{ $user->currency('duckets') }}
+                            {{ $user->activity_points }}
                         </h4>
                     </div>
 
@@ -38,7 +38,7 @@
                         <img src="{{ asset('/assets/images/profile/diamonds.png') }}" alt="">
 
                         <h4 class="text-[#146867] font-semibold text-2xl">
-                            {{ $user->currency('diamonds') }}
+                            {{ $user->vip_points }}
                         </h4>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                        <div class="flex justify-between">
                            @forelse($user->badges as $badge)
                                <div data-tippy-content="{{ $badge->badge_code }}" class="user-badge h-[70px] w-[70px] border-2 dark:border-gray-700 rounded-full flex items-center justify-center cursor-pointer">
-                                   <img  src="{{ setting('badges_path') }}/{{ $badge->badge_code }}.gif" class="max-h-[55px] max-w-[55px]" alt="">
+                                   <img  src="{{ setting('badges_path') }}/{{ $badge->badge_id }}.gif" class="max-h-[55px] max-w-[55px]" alt="">
                                </div>
                            @empty
                                <div class="col-span-4">
@@ -110,19 +110,19 @@
                             @forelse($user->rooms as $room)
                                 <div class="flex h-[150px] w-[120px] flex-col gap-y-1 rounded-md dark:bg-gray-900 bg-gray-200 p-1 overflow-hidden">
                                     <div class="h-full bg-[#C3C3C3] dark:bg-gray-800 rounded-md border border-gray-500 dark:border-gray-700 relative flex items-center justify-center flex-col">
-                                        <img src="{{ setting('room_thumbnail_path') }}/{{ $room->id }}.png" alt="{{ $room->name }}" onerror="this.onerror=null;this.src='{{ asset('/assets/images/profile/room_placeholder.png') }}';">
+                                        <img src="{{ setting('room_thumbnail_path') }}/{{ $room->id }}.png" alt="{{ $room->caption }}" onerror="this.onerror=null;this.src='{{ asset('/assets/images/profile/room_placeholder.png') }}';">
 
-                                        <div class="{{ $room->users > 0 ? 'bg-[#00800B]' : 'bg-gray-400' }} px-1 py-[1px] -mt-3 font-semibold rounded flex gap-x-[3px] text-white items-center text-xs">
+                                        <div class="{{ $room->users_now > 0 ? 'bg-[#00800B]' : 'bg-gray-400' }} px-1 py-[1px] -mt-3 font-semibold rounded flex gap-x-[3px] text-white items-center text-xs">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-[12px]" viewBox="0 0 20 20" fill="currentColor">
                                                 <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
                                             </svg>
 
-                                            {{ $room->users }}
+                                            {{ $room->users_now }}
                                         </div>
                                     </div>
 
                                     <div class="flex justify-between items-center px-1">
-                                        <p class="truncate">{{ Str::limit($room->name, 6) }}</p>
+                                        <p class="truncate">{{ Str::limit($room->caption, 6) }}</p>
 
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyan-300 hover:text-cyan-400 mt-1 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
                                             <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />

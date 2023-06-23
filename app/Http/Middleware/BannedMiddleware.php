@@ -12,8 +12,9 @@ class BannedMiddleware
     public function handle(Request $request, Closure $next)
     {
         $visitorIp = $request->ip();
-        $ipBan = Ban::where('ip', '=', $visitorIp)
-            ->where('ban_expire', '>', time())
+        $ipBan = Ban::where('value', '=', $visitorIp)
+            ->where('expire', '>', time())
+			->where('bantype', '=', 'ip')
             ->orderByDesc('id')
             ->exists();
         $authenticated = Auth::check();

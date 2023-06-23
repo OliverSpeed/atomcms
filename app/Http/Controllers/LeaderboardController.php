@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\UserCurrency;
-use App\Models\UserSetting;
+use App\Models\UserStat;
 
 class LeaderboardController extends Controller
 {
@@ -12,46 +11,31 @@ class LeaderboardController extends Controller
     {
         $staffUsers = User::select('id')->where('rank', '>=', setting('min_staff_rank'))->get()->pluck('id');
 
-        $duckets = UserCurrency::whereNotIn('user_id', $staffUsers)
-            ->where('type', 0)
-            ->orderByDesc('amount')
-            ->take(9)
-            ->with(['user:id,username,look'])
-            ->get();
-
-        $diamonds = UserCurrency::whereNotIn('user_id', $staffUsers)
-            ->where('type', 5)
-            ->orderByDesc('amount')
-            ->take(9)
-            ->with(['user:id,username,look'])
-            ->get();
-
-
-        $mostOnline = UserSetting::whereNotIn('user_id', $staffUsers)
-            ->select('user_id', 'online_time')
-            ->orderByDesc('online_time')
+        $mostOnline = UserStat::whereNotIn('id', $staffUsers)
+            ->select('id', 'OnlineTime')
+            ->orderByDesc('OnlineTime')
             ->take(9)
             ->with('user:id,username,look')
-            ->get();
+            ->get(['id', 'OnlineTime']);
 
-        $respectsReceived = UserSetting::whereNotIn('user_id', $staffUsers)
-            ->select('user_id', 'respects_received')
-            ->orderByDesc('respects_received')
+        $respectsReceived = UserStat::whereNotIn('id', $staffUsers)
+            ->select('id', 'Respect')
+            ->orderByDesc('Respect')
             ->take(9)
             ->with('user:id,username,look')
-            ->get();
+			->get(['id', 'Respect']);
 
-        $achievementScores = UserSetting::whereNotIn('user_id', $staffUsers)
-            ->select('user_id', 'achievement_score')
-            ->orderByDesc('achievement_score')
+        $achievementScores = UserStat::whereNotIn('id', $staffUsers)
+            ->select('id', 'AchievementScore')
+            ->orderByDesc('AchievementScore')
             ->take(9)
             ->with('user:id,username,look')
-            ->get();
+            ->get(['id', 'AchievementScore']);
 
         return view('leaderboard', [
             'credits' => User::whereNotIn('id', $staffUsers)->orderByDesc('credits')->take(9)->get(),
-            'duckets' => $duckets,
-            'diamonds' => $diamonds,
+            'duckets' => User::whereNotIn('id', $staffUsers)->orderByDesc('activity_points')->take(9)->get(),
+            'diamonds' => User::whereNotIn('id', $staffUsers)->orderByDesc('vip_points')->take(9)->get(),
             'mostOnline' => $mostOnline,
             'respectsReceived' => $respectsReceived,
             'achievementScores' => $achievementScores,

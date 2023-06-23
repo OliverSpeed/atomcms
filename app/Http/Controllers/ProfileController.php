@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Guild;
-use App\Models\GuildMember;
+use App\Models\Group;
+use App\Models\GroupMember;
 use App\Models\User;
 use App\Models\UserBadge;
 use App\Models\MessengerFriendship;
@@ -14,14 +14,14 @@ class ProfileController extends Controller
     public function __invoke(User $user)
     {
         $user = $user->load(['badges' => function ($badges) {
-            $badges->where('slot_id', '>', '0')
-                ->orderBy('slot_id')
+            $badges->where('badge_slot', '>', '0')
+                ->orderBy('badge_slot')
                 ->take(5)
                 ->get();
         },
         'rooms' => function ($rooms) {
-            $rooms->select('id', 'owner_id', 'name', 'users')
-                ->orderByDesc('users')
+            $rooms->select('id', 'owner', 'caption', 'users_now')
+                ->orderByDesc('users_now')
                 ->orderBy('id')
                 ->take(4)
                 ->get();
@@ -35,9 +35,9 @@ class ProfileController extends Controller
             ->with('user:id,username,look')
             ->get();
 
-        $groups = GuildMember::select(['guilds_members.id', 'guilds_members.guild_id', 'guilds_members.user_id', 'guilds.name', 'guilds.badge'])
-            ->where('guilds_members.user_id', '=', $user->id)
-            ->join('guilds', 'guilds_members.guild_id', '=', 'guilds.id')
+        $groups = GroupMember::select(['group_memberships.id', 'group_memberships.group_id', 'group_memberships.user_id', 'groups.name', 'groups.badge'])
+            ->where('group_memberships.user_id', '=', $user->id)
+            ->join('groups', 'group_memberships.group_id', '=', 'groups.id')
             ->take(6)
             ->inRandomOrder()
             ->get();

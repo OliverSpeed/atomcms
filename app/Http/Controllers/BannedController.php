@@ -9,8 +9,9 @@ class BannedController extends Controller
 {
     public function __invoke()
     {
-        $ipBan = Ban::where('ip', '=', request()->ip())
-            ->where('ban_expire', '>', time())
+        $ipBan = Ban::where('value', '=', request()->ip())
+            ->where('expire', '>', time())
+			->where('bantype', '=', 'ip')
             ->orderByDesc('id')
             ->first();
 

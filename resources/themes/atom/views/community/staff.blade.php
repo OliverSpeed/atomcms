@@ -4,13 +4,13 @@
     <div class="col-span-12 lg:col-span-9 lg:w-[96%]">
         <div class="flex flex-col gap-y-4">
             @foreach($employees as $employee)
-                <x-content.staff-content-section :badge="$employee->badge" :color="$employee->staff_color">
+                <x-content.staff-content-section :badge="$employee->badge_code" :color="$employee->staff_color">
                     <x-slot:title>
-                        {{ $employee->rank_name }}
+                        {{ $employee->name }}
                     </x-slot:title>
 
                     <x-slot:under-title>
-                        {{ $employee->job_description }}
+                        {{ $employee->description }}
                     </x-slot:under-title>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

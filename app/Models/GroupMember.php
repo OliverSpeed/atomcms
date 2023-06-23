@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class GuildMember extends Model
+class GroupMember extends Model
 {
-    protected $table = 'guilds_members';
+    protected $table = 'group_memberships';
 
     protected $guarded = ['id'];
 
     public $timestamps = false;
 
-    public function guilds(): HasMany
+    public function groups(): HasMany
     {
-        return $this->hasMany(Guild::class);
+        return $this->hasMany(Group::class);
     }
 }

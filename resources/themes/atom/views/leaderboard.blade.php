@@ -55,7 +55,7 @@
                 <hr class="dark:border-gray-500">
 
                 <div class="flex flex-col gap-y-3 mt-4">
-                    @foreach($duckets as $index => $currency)
+                    @foreach($duckets as $index => $user)
                         <div class="p-3 rounded bg-gray-100 flex gap-x-2 items-center h-[70px] overflow-hidden dark:bg-gray-800">
                             <div @class([
                                         'w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center',
@@ -70,16 +70,16 @@
                                     @class([
                                         'mt-8' => !Str::contains(setting('avatar_imager'), 'www.habbo.com'),
                                     ])
-                                    src="{{ setting('avatar_imager') }}{{ $currency->user?->look }}&size=b&head_direction=2&gesture=sml&headonly=1"
+                                    src="{{ setting('avatar_imager') }}{{ $user->look }}&size=b&head_direction=2&gesture=sml&headonly=1"
                                     alt="" />
 
                             <div class="flex flex-col">
                                 <p class="font-bold text-gray-700 dark:text-gray-100">
-                                    {{ $currency->user?->username }}
+                                    {{ $user->username }}
                                 </p>
 
                                 <p class="text-sm font-bold text-gray-600 dark:text-gray-400">
-                                    {{ __(':duckets duckets', ['duckets' => $currency->amount]) }}
+									{{ __(':duckets duckets', ['duckets' => $user->activity_points]) }}
                                 </p>
                             </div>
 
@@ -98,7 +98,7 @@
                 <hr class="dark:border-gray-500">
 
                 <div class="flex flex-col gap-y-3 mt-4">
-                    @foreach($diamonds as $index => $currency)
+                    @foreach($diamonds as $index => $user)
                         <div class="p-3 rounded bg-gray-100 flex gap-x-2 items-center h-[70px] overflow-hidden dark:bg-gray-800">
                             <div @class([
                                         'w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center',
@@ -113,16 +113,16 @@
                                     @class([
                                         'mt-8' => !Str::contains(setting('avatar_imager'), 'www.habbo.com'),
                                     ])
-                                    src="{{ setting('avatar_imager') }}{{ $currency->user?->look }}&size=b&head_direction=2&gesture=sml&headonly=1"
+                                    src="{{ setting('avatar_imager') }}{{ $user->look }}&size=b&head_direction=2&gesture=sml&headonly=1"
                                     alt="" />
 
                             <div class="flex flex-col">
                                 <p class="font-bold text-gray-700 dark:text-gray-100">
-                                    {{ $currency->user?->username }}
+                                    {{ $user->username }}
                                 </p>
 
                                 <p class="text-sm font-bold text-gray-600 dark:text-gray-400">
-                                    {{ __(':diamonds diamonds', ['diamonds' => $currency->amount]) }}
+									{{ __(':diamonds diamonds', ['diamonds' => $user->vip_points]) }}
                                 </p>
                             </div>
 
@@ -165,7 +165,7 @@
                                 </p>
 
                                 <p class="text-sm font-bold text-gray-600 dark:text-gray-400">
-                                    {{ __(':online hours', ['online' => round($onlineTime->online_time / 3600)]) }}
+                                    {{ __(':online hours', ['online' => round($onlineTime->OnlineTime / 3600)]) }}
                                 </p>
                             </div>
 
@@ -208,7 +208,7 @@
                                 </p>
 
                                 <p class="text-sm font-bold text-gray-600 dark:text-gray-400">
-                                    {{ __(':respect respects received', ['respect' =>  $respect->respects_received]) }}
+                                    {{ __(':respect respects received', ['respect' =>  $respect->Respect]) }}
                                 </p>
                             </div>
 
@@ -251,7 +251,7 @@
                                 </p>
 
                                 <p class="text-sm font-bold text-gray-600 dark:text-gray-400">
-                                    {{ __(':achievement achievement score', ['achievement' => $achievement->achievement_score]) }}
+                                    {{ __(':achievement achievement score', ['achievement' => $achievement->AchievementScore]) }}
                                 </p>
                             </div>
 

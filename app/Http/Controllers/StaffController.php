@@ -9,7 +9,7 @@ class StaffController extends Controller
     public function __invoke()
     {
         return view('community.staff', [
-            'employees' => Permission::select('id', 'rank_name', 'badge', 'staff_color', 'job_description')
+            'employees' => Permission::select('id', 'name', 'badge_code', 'staff_color', 'description')
                 ->where('id', '>=', setting('min_staff_rank'))
                 ->where('hidden_rank', false)
                 ->orderByDesc('id')
