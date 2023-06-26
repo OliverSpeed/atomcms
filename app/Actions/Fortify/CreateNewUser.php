@@ -40,8 +40,8 @@ class CreateNewUser implements CreatesNewUsers
         }
 
         $matchingIpCount = User::query()
-            ->where('ip_current', '=', $ip)
-            ->orWhere('ip_register', '=', $ip)
+            ->where('ip_last', '=', $ip)
+            ->orWhere('ip_reg', '=', $ip)
             ->count();
 
         if ($matchingIpCount >= (int)setting('max_accounts_per_ip')) {
@@ -57,12 +57,12 @@ class CreateNewUser implements CreatesNewUsers
             'mail' => $input['mail'],
             'password' => Hash::make($input['password']),
             'account_created' => time(),
-            'last_login' => time(),
+            'last_online' => time(),
             'motto' => setting('start_motto'),
             'look' => setting('start_look'),
             'credits' => setting('start_credits'),
-            'ip_register' => $ip,
-            'ip_current' => $ip,
+            'ip_reg' => $ip,
+            'ip_last' => $ip,
             'auth_ticket' => '',
             'home_room' => (int)setting('hotel_home_room'),
         ]);
@@ -88,7 +88,7 @@ class CreateNewUser implements CreatesNewUsers
             }
 
             // If same IP skip referral incrementation
-            if ($referralUser->ip_current == $user->ip_current || $referralUser->ip_register == $user->ip_register) {
+            if ($referralUser->ip_last == $user->ip_last || $referralUser->ip_reg == $user->ip_reg) {
                 return redirect(RouteServiceProvider::HOME);
             }
 

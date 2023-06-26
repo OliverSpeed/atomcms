@@ -9,6 +9,8 @@ class UserObserver
 {
     public function created(User $user)
     {
+		// not deleting this but it doesnt exist in plus by default
+		/*
         $user->settings()->create([
             'last_hc_payday' => setting('give_hc_on_register') == '1' ? now()->addYears(10)->unix() : 0,
         ]);
@@ -22,5 +24,6 @@ class UserObserver
                 'active' => 1,
             ]);
         }
+		*/
     }
 }
